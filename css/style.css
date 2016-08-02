@@ -47,6 +47,28 @@ font-size: 48px;
     -o-box-shadow: 0 0 10px 7px rgba(0, 0, 0, 0.6);
 }
 
+.quarter-circle-1 {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -220px 0px 0px -220px;
+    background-color: #BF0000;
+    height: 200px;
+    width: 200px;
+    -moz-border-radius: 200px 0 80px 0;
+    border-radius: 200px 0 80px 0;
+    border: 5px solid #000000;
+    box-shadow: 0 0 15px 7px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0 0 10px 7px rgba(0, 0, 0, 0.6);
+    -webkit-box-shadow: 0 0 10px 7px rgba(0, 0, 0, 0.6);
+    -o-box-shadow: 0 0 10px 7px rgba(0, 0, 0, 0.6);
+}
+
+.red-clicked {
+    
+}
+
 .quarter-circle-2 {
     cursor: pointer;
     position: absolute;
