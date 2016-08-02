@@ -35,30 +35,18 @@ $(document).ready(function() {
     // };
 
 
-    // get random pick from computer 
+    // get random pick from computer ✓
     function compColor() {
         colors = [red.id, green.id, blue.id, yellow.id];
         compChoice = colors[Math.floor(Math.random() * colors.length)];
         return compChoice;
 
     };
-    compColor();
-
-    // get Users choice, push into array ✓
 
 
-     $(".btn").each(function() {
-        $(this).click(function() {
-            console.log("button clicked");
-            var UserChoice = $(this).attr('id');
-            userPattern.push(UserChoice);
-            // console.log(UserChoice);
-            // console.log(userPattern);
-        });
-    });
 
 
-    //start game
+    //start game ✓
     $("#start").on("click", function() {
         round = 1; 
         simonPattern = [];
@@ -68,17 +56,33 @@ $(document).ready(function() {
     });
 
 
-    //AI makes first move
+    //AI makes move ✓
     function gameStart() {
-        var cpucolor = compColor();
-        simonPattern.push(compColor); 
+        var cpuColor = compColor();
+        simonPattern.push(compColor);
         // playAudio();
-        $("#" + cpucolor).addClass("lit"); 
+        $("#" + cpuColor).addClass("lit");
         setTimeout(function() {
-            $("#" + cpucolor).removeClass("lit");
+            $("#" + cpuColor).removeClass("lit");
         }, 800);
+    };
 
-      };
+
+    // get Users choice, push into array ✓
+
+
+     $(".btn").each(function() {
+         $(this).click(function() {
+             console.log("button clicked");
+            var userColor = $(this).attr('id');
+             userPattern.push(userColor);
+             $("#" + userColor).addClass("lit");
+             setTimeout(function() {
+                 $("#" + userColor).removeClass("lit");
+             }, 800);
+         });
+     });
+
 
     //make it harder after certain rounds
         // if (round >= 6) {
@@ -92,15 +96,17 @@ $(document).ready(function() {
     // };
 
 
-
-//         function comparePatterns() {
-//       $(simonPattern).each(function() {  {
-//         //loop through each element in array to see if it matches user array
-//         if (userPattern[i] != simonPattern[i]) {
-//           return (false);
-//         }
-//         return (true);
-//     }
+// compare User's choice to the simon array. if false start over
+        function comparePatterns() {
+      $(simonPattern).each(function() {
+        //loop through each element in array to see if it matches user array
+        if (userPattern[i] != simonPattern[i]) {
+          return (false);
+          reset();
+        }
+        return (true);
+    });
+    };
 
 
 //     //reset the game/new game
