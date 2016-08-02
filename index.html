@@ -13,28 +13,37 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container fluid">
         <h1 class="text-center">Simon Says</h1>
         <p class="text-center">Match ever-increasing light and sound patterns to beat Simon game. </p>
-        <div class="row">
+        <div class="row-fluid">
             <div class="col-xs-12 ">
                 <div class="circle center-block">
-                    <div class="btn quarter-circle-1" id="red"></div>
-                    <div class="btn quarter-circle-2" id="green"></div>
-
-                    <div class="btn quarter-circle-3" id="blue"></div>
-                    <div class="btn quarter-circle-4" id="yellow"></div>
-
+                    <div class="container-fluid">
+                        <div class="simon">
+                            <div id="scoreboard">
+                                <p id = "score">--</p>
+                            </div>
+                            <div id="count">
+                                <h3>Count</h3></div>
+                            <div id="start"></div>
+                            <div>
+                                <h4>Start</h4></div>
+                        </div>
+                        <div class="btn" id="red"></div>
+                        <div class="btn" id="green"></div>
+                        <div class="btn" id="blue"></div>
+                        <div class="btn" id="yellow"></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- script-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="js/script.js"></script>
+        <!-- script-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="js/script.js"></script>
 </body>
 
 </html>

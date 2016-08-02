@@ -2,41 +2,116 @@ $(document).ready(function() {
 
     // define variables
     var userPattern = [];
-    var computerPattern = [];
-    var round = ''; //round starts at 0
-    var result = '';
-    var winValue = 0; //
+    var simonPattern = [];
+    var round = 0; //round starts at 1 with start button
+    // var result = '';
+    // var winValue = 0; //
+
+    //audio variables
+    var redAudio = new Audio(
+        'https://s3.amazonaws.com/freecodecamp/simonSound1.mp3');
+    var greenAudio = new Audio(
+        'https://s3.amazonaws.com/freecodecamp/simonSound2.mp3');
+    var blueAudio = new Audio(
+        'https://s3.amazonaws.com/freecodecamp/simonSound3.mp3');
+
+    var yellowAudio = new Audio(
+        'https://s3.amazonaws.com/freecodecamp/simonSound4.mp3');
+    var audioBuzzer = new Audio('https://s3-us-west-2.amazonaws.com/guylemon/Buzzer.mp3');
+
+    // play audio with button click
+
+    // function playAudio() {
+    //     if (choice === 'red') {
+    //         playAudio('redAudio');
+    //     } else if (choice === 'green') {
+    //         playAudio('greenAudio');
+    //     } else if (choice === 'blue') {
+    //         playAudio('blueAudio');
+    //     } else if (choice === 'yellow') {
+    //         playAudio('yellowAudio');
+    //     }
+
+    // };
 
 
+    // get random pick from computer 
+    function compColor() {
+        colors = [red.id, green.id, blue.id, yellow.id];
+        compChoice = colors[Math.floor(Math.random() * colors.length)];
+        return compChoice;
 
-    $(".btn").each(function() {
+    };
+    compColor();
+
+    // get Users choice, push into array ✓
+
+
+     $(".btn").each(function() {
         $(this).click(function() {
             console.log("button clicked");
             var UserChoice = $(this).attr('id');
             userPattern.push(UserChoice);
-            console.log(UserChoice);
-            console.log(userPattern);
+            // console.log(UserChoice);
+            // console.log(userPattern);
         });
-
-        function compColor() {
-            color = [red, green, blue, yellow];
-            compChoice = color[Math.floor(Math.random() * color.length)];
-            return color;
-            console.log(color);
-
-        };
     });
 
 
+    //start game
+    $("#start").on("click", function() {
+        round = 1; 
+        simonPattern = [];
+        userPattern = [];
+        gameStart();
+        // console.log("start button clicked")
+    });
 
-    // function reset() {
 
-    //   for (var i = 0; i < boxes.length; i++) {
-    //     boxes[i].innerHTML = "";
-    //     arrayX = [];
-    //     arrayO = [];
-    //     count = 0;
-    //   }
-    // }; 
+    //
+    function gameStart() {
+        var color = compColor();
+        simonPattern.push(compColor); 
+        // playAudio();
+        $("#" + color).addClass("lit");
+        setTimeout(function() {
+            $("#" + color).removeClass("lit");
+        }, 800);
+
+      };
+
+    //make it harder after certain rounds
+        // if (round >= 6) {
+        //     speed = 700;
+        // } else if (round >= 10) {
+        //     speed = 600;
+        // } else if (round >= 15) {
+        //     speed = 400;
+        // }
+        // round += 1;
+    // };
+
+
+
+//         function comparePatterns() {
+//       $(simonPattern).each(function() {  {
+//         //loop through each element in array to see if it matches user array
+//         if (userPattern[i] != simonPattern[i]) {
+//           return (false);
+//         }
+//         return (true);
+//     }
+
+
+//     //reset the game/new game
+//     function reset() {
+
+//         for (var i = 0; i < boxes.length; i++) {
+//             userPattern = [];
+//             simonPattern = [];
+//             round = 0;
+//             winValue = 0;
+//         }
+
 
 });
