@@ -68,14 +68,14 @@ $(document).ready(function() {
     });
 
 
-    //
+    //AI makes first move
     function gameStart() {
-        var color = compColor();
+        var cpucolor = compColor();
         simonPattern.push(compColor); 
         // playAudio();
-        $("#" + color).addClass("lit");
+        $("#" + cpucolor).addClass("lit"); 
         setTimeout(function() {
-            $("#" + color).removeClass("lit");
+            $("#" + cpucolor).removeClass("lit");
         }, 800);
 
       };
