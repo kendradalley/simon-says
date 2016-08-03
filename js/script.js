@@ -1,108 +1,126 @@
  $(document).ready(function() {
 
-   var turn = 0;
-   var simonPattern = [];
-   var userPattern = [];
-   var gameStatus = {};
+     var turn = 0;
+     var simonPattern = [];
+     var userPattern = [];
+     // var gameStatus = {}; use for messages
 
-   var red = document.getElementById("red");
-   var green = document.getElementById("green");
-   var blue = document.getElementById("blue");
-   var yellow = document.getElementById("yellow");
+     //use .getElementById because it returns just the tag, instead of $ because it returns an array of objects.. not what we want
+     var red = document.getElementById("red");
+     var green = document.getElementById("green");
+     var blue = document.getElementById("blue");
+     var yellow = document.getElementById("yellow");
 
-   $("#start").on("click", function() {
-     turn = 1;
-     simonPattern = [];
-     userPattern = [];
-     gameStart();
-   });
-
-   function compColor() {
-     colors = [red, green, blue, yellow];
-     choice = colors[Math.floor(Math.random() * colors.length)];
-     return colors;
-
-   };
-
-   function gameStart() {
-     document.getElementById("score").innerHTML = turn;
-     compColor();
-     simonPattern.push(choice);
-     $(choice).addClass("lit");
-     setTimeout(function() {
-       $(choice).removeClass("lit");
-     }, 800);
-     console.log(simonPattern);
-     return;
-   };
-
-   function gameRun() {
-
-     var counter = -1; // ? needs -1 so it shows the first color in array
-
-
-     (function next() {
-       var maxLoops = simonPattern.length -1; //see above comment, not sure if it's needed here
-       if (counter++ >= maxLoops)
-          return;
-       $(simonPattern[counter]).addClass("lit");
-
-       setTimeout(function() {
-         $(simonPattern[counter]).removeClass("lit");
-
-         next();
-       }, 800);
-     })();
-     return;
-   };
-
-   function checkMatch() {
-     if (userPattern.length !== simonPattern.length)
-       return false;
-     for (var i = userPattern.length; i--;) {
-       if (userPattern[i] !== simonPattern[i])
-         return false;
-     }
-     // console.log(turn);
-     return true;
-   };
-
-
-   function nextTurn() {
-     setTimeout(function() {
-
-       if (checkMatch()) {
-
+     // start .start button function
+     $("#start").on("click", function() {
+         turn = 1;
+         simonPattern = [];
          userPattern = [];
-         turn++;
-         $("#score").html(turn);
+         gameStart();
+     });
+     // end start button function
+
+     // random color generator
+     function compColor() {
+         colors = [red, green, blue, yellow];
+         choice = colors[Math.floor(Math.random() * colors.length)];
+         return colors;
+
+     };
+     // end random color generator
+
+     // start gameStart function 
+     function gameStart() {
+         document.getElementById("score").innerHTML = turn;
          compColor();
          simonPattern.push(choice);
-         gameRun();
+         $(choice).addClass("lit");
+         setTimeout(function() {
+             $(choice).removeClass("lit");
+         }, 800);
+         console.log(simonPattern);
+         return;
+     };
+     // end gameStart function
 
-       } else {
-         // youLose
-       };
-       return;
-     }, 1000);
+     // start gameRun function
+     function gameRun() {
 
-   };
+        var counter = 0;
 
-   function lengthCheck() {
-     if (userPattern.length == simonPattern.length) {
-       nextTurn();
+        var myInterval = setInterval(function() {
+           console.log('In interval:', counter);
+           if (counter === simonPattern.length - 1) {
+               clearInterval(myInterval);
+           };
+
+           $(simonPattern[counter]).addClass("lit");
+
+           setTimeout(function() {
+               $(simonPattern[counter]).removeClass("lit");
+               counter++;
+               console.log('timeout');
+           }, 500);
+
+        }, 1000);
+
+     };
+
+
+     // start checkMatch
+     function checkPattern() {
+         if (userPattern.length !== simonPattern.length)
+             return false;
+         for (var i = userPattern.length; i--;) {
+             if (userPattern[i] !== simonPattern[i])
+                 return false;
+         }
+         // console.log(turn);
+         return true;
+     };
+
+
+     function nextTurn() {
+         setTimeout(function() { //testing setInterval instead of setTimeout
+
+             if (checkPattern()) {
+
+                 userPattern = []; //need to empty array everytime
+                 turn++;
+                 $("#score").html(turn);
+                 compColor();
+                 simonPattern.push(choice);
+                 gameRun();
+
+             } else {
+                 // youLose
+             };
+             return;
+         }, 2100);
+
+     };
+
+     function lengthCheck() {
+         if (userPattern.length == simonPattern.length) {
+             nextTurn();
+         }
+         return;
      }
-     return;
-   }
 
-//listen for user clicks
-   $(".btn").mousedown(function() {
-     $(this).addClass("lit");
-     userPattern.push(this);
-   });
-   $(".btn").mouseup(function() {
-     $(this).removeClass("lit");
-     lengthCheck();
-   });
+     function youWin() {
+        if (round >= 20) {
+
+        }
+     }
+
+     //listen for user clicks-- updated. 
+     $(".btn").mousedown(function() {
+         $(this).addClass("lit");
+         userPattern.push(this);
+     });
+     $(".btn").mouseup(function() {
+         $(this).removeClass("lit");
+         lengthCheck();
+     });
 
  });
