@@ -1,123 +1,108 @@
-$(document).ready(function() {
+ $(document).ready(function() {
 
-    // define variables
-    var userPattern = [];
-    var simonPattern = [];
-    var round = 0; //round starts at 1 with start button
-    // var result = '';
-    // var winValue = 0; //
+   var turn = 0;
+   var simonPattern = [];
+   var userPattern = [];
+   var gameStatus = {};
 
-    //audio variables
-    var redAudio = new Audio(
-        'https://s3.amazonaws.com/freecodecamp/simonSound1.mp3');
-    var greenAudio = new Audio(
-        'https://s3.amazonaws.com/freecodecamp/simonSound2.mp3');
-    var blueAudio = new Audio(
-        'https://s3.amazonaws.com/freecodecamp/simonSound3.mp3');
+   var red = document.getElementById("red");
+   var green = document.getElementById("green");
+   var blue = document.getElementById("blue");
+   var yellow = document.getElementById("yellow");
 
-    var yellowAudio = new Audio(
-        'https://s3.amazonaws.com/freecodecamp/simonSound4.mp3');
-    var audioBuzzer = new Audio('https://s3-us-west-2.amazonaws.com/guylemon/Buzzer.mp3');
+   $("#start").on("click", function() {
+     turn = 1;
+     simonPattern = [];
+     userPattern = [];
+     gameStart();
+   });
 
-    // play audio with button click
+   function compColor() {
+     colors = [red, green, blue, yellow];
+     choice = colors[Math.floor(Math.random() * colors.length)];
+     return colors;
 
-    // function playAudio() {
-    //     if (choice === 'red') {
-    //         playAudio('redAudio');
-    //     } else if (choice === 'green') {
-    //         playAudio('greenAudio');
-    //     } else if (choice === 'blue') {
-    //         playAudio('blueAudio');
-    //     } else if (choice === 'yellow') {
-    //         playAudio('yellowAudio');
-    //     }
+   };
 
-    // };
+   function gameStart() {
+     document.getElementById("score").innerHTML = turn;
+     compColor();
+     simonPattern.push(choice);
+     $(choice).addClass("lit");
+     setTimeout(function() {
+       $(choice).removeClass("lit");
+     }, 800);
+     console.log(simonPattern);
+     return;
+   };
 
+   function gameRun() {
 
-    // get random pick from computer ✓
-    function compColor() {
-        colors = [red.id, green.id, blue.id, yellow.id];
-        compChoice = colors[Math.floor(Math.random() * colors.length)];
-        return compChoice;
-
-    };
+     var counter = -1; // ? needs -1 so it shows the first color in array
 
 
+     (function next() {
+       var maxLoops = simonPattern.length -1; //see above comment, not sure if it's needed here
+       if (counter++ >= maxLoops)
+          return;
+       $(simonPattern[counter]).addClass("lit");
+
+       setTimeout(function() {
+         $(simonPattern[counter]).removeClass("lit");
+
+         next();
+       }, 800);
+     })();
+     return;
+   };
+
+   function checkMatch() {
+     if (userPattern.length !== simonPattern.length)
+       return false;
+     for (var i = userPattern.length; i--;) {
+       if (userPattern[i] !== simonPattern[i])
+         return false;
+     }
+     // console.log(turn);
+     return true;
+   };
 
 
-    //start game ✓
-    $("#start").on("click", function() {
-        round = 1; 
-        simonPattern = [];
-        userPattern = [];
-        gameStart();
-        // console.log("start button clicked")
-    });
+   function nextTurn() {
+     setTimeout(function() {
 
+       if (checkMatch()) {
 
-    //AI makes move ✓
-    function gameStart() {
-        var cpuColor = compColor();
-        simonPattern.push(compColor);
-        // playAudio();
-        $("#" + cpuColor).addClass("lit");
-        setTimeout(function() {
-            $("#" + cpuColor).removeClass("lit");
-        }, 800);
-    };
+         userPattern = [];
+         turn++;
+         $("#score").html(turn);
+         compColor();
+         simonPattern.push(choice);
+         gameRun();
 
+       } else {
+         // youLose
+       };
+       return;
+     }, 1000);
 
-    // get Users choice, push into array ✓
+   };
 
+   function lengthCheck() {
+     if (userPattern.length == simonPattern.length) {
+       nextTurn();
+     }
+     return;
+   }
 
-     $(".btn").each(function() {
-         $(this).click(function() {
-             console.log("button clicked");
-            var userColor = $(this).attr('id');
-             userPattern.push(userColor);
-             $("#" + userColor).addClass("lit");
-             setTimeout(function() {
-                 $("#" + userColor).removeClass("lit");
-             }, 800);
-         });
-     });
+//listen for user clicks
+   $(".btn").mousedown(function() {
+     $(this).addClass("lit");
+     userPattern.push(this);
+   });
+   $(".btn").mouseup(function() {
+     $(this).removeClass("lit");
+     lengthCheck();
+   });
 
-
-    //make it harder after certain rounds
-        // if (round >= 6) {
-        //     speed = 700;
-        // } else if (round >= 10) {
-        //     speed = 600;
-        // } else if (round >= 15) {
-        //     speed = 400;
-        // }
-        // round += 1;
-    // };
-
-
-// compare User's choice to the simon array. if false start over
-        function comparePatterns() {
-      $(simonPattern).each(function() {
-        //loop through each element in array to see if it matches user array
-        if (userPattern[i] != simonPattern[i]) {
-          return (false);
-          reset();
-        }
-        return (true);
-    });
-    };
-
-
-//     //reset the game/new game
-//     function reset() {
-
-//         for (var i = 0; i < boxes.length; i++) {
-//             userPattern = [];
-//             simonPattern = [];
-//             round = 0;
-//             winValue = 0;
-//         }
-
-
-});
+ });
