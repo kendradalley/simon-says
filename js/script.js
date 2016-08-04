@@ -11,6 +11,11 @@
      var blue = document.getElementById("blue");
      var yellow = document.getElementById("yellow");
 
+     var redAudio = new Audio('simonSound-red.mp3');
+     var greenAudio = new Audio('simonSound-green.mp3');
+     var blueAudio = new Audio('simonSound-blue.mp3');
+     var yellowAudio = new Audio('simonSound-yellow.mp3');
+
      // start .start button function
      $("#start").on("click", function() {
          turn = 1;
@@ -19,6 +24,19 @@
          gameStart();
      });
      // end start button function
+
+
+     function simonAudio() {
+         if (choice == red) {
+             redAudio.play();
+         } else if (choice == blue) {
+             blueAudio.play();
+         } else if (choice == green) {
+             greenAudio.play();
+         } else if (choice == yellow) {
+             yellowAudio.play();
+         }
+     };
 
      // random color generator
      function compColor() {
@@ -34,11 +52,12 @@
          document.getElementById("score").innerHTML = turn;
          compColor();
          simonPattern.push(choice);
+         simonAudio();
          $(choice).addClass("lit");
          setTimeout(function() {
              $(choice).removeClass("lit");
          }, 800);
-         console.log(simonPattern);
+         // console.log(simonPattern);
          return;
      };
      // end gameStart function
@@ -46,28 +65,28 @@
      // start gameRun function
      function gameRun() {
 
-        var counter = 0;
+         var counter = 0;
 
-        var myInterval = setInterval(function() {
-           console.log('In interval:', counter);
-           if (counter === simonPattern.length - 1) {
-               clearInterval(myInterval);
-           };
+         var myInterval = setInterval(function() {
+             // console.log('In interval:', counter);
+             if (counter === simonPattern.length - 1) {
+                 clearInterval(myInterval);
+             };
+             simonAudio();
+             $(simonPattern[counter]).addClass("lit");
 
-           $(simonPattern[counter]).addClass("lit");
+             setTimeout(function() {
+                 $(simonPattern[counter]).removeClass("lit");
+                 counter++;
+                 console.log('timeout');
+             }, 500);
 
-           setTimeout(function() {
-               $(simonPattern[counter]).removeClass("lit");
-               counter++;
-               console.log('timeout');
-           }, 500);
-
-        }, 1000);
+         }, 1000);
 
      };
 
 
-     // start checkMatch
+     // start checkPattern
      function checkPattern() {
          if (userPattern.length !== simonPattern.length)
              return false;
@@ -75,13 +94,13 @@
              if (userPattern[i] !== simonPattern[i])
                  return false;
          }
-         // console.log(turn);
          return true;
      };
+     // end of checkPattern
 
-
+     // start of nextTurn function
      function nextTurn() {
-         setTimeout(function() { //testing setInterval instead of setTimeout
+         setTimeout(function() {
 
              if (checkPattern()) {
 
@@ -96,31 +115,51 @@
                  // youLose
              };
              return;
-         }, 2100);
+         }, 1000);
 
      };
+     // end of nextTurn function
 
+     // start of lengthCheck function
      function lengthCheck() {
          if (userPattern.length == simonPattern.length) {
              nextTurn();
-         }
+         };
          return;
-     }
+     };
+     // end of lengthCheck function
 
-     function youWin() {
-        if (round >= 20) {
-
-        }
-     }
+     function checkTurn() {
+         if (turn >= 3) {
+             simonPattern = [];
+             alert('You win');
+         }
+     };
 
      //listen for user clicks-- updated. 
      $(".btn").mousedown(function() {
          $(this).addClass("lit");
+         userAudio();
          userPattern.push(this);
      });
      $(".btn").mouseup(function() {
          $(this).removeClass("lit");
          lengthCheck();
      });
+     // end of click listeners
 
+     //start userAudio clicks
+     $("#red").mousedown(function() {
+         redAudio.play();
+     });
+     $("#green").mousedown(function() {
+         greenAudio.play();
+     });
+     $("#blue").mousedown(function() {
+         blueAudio.play();
+     });
+     $("#yellow").mousedown(function() {
+         yellowAudio.play();
+     });
+     // end userAudio clicks
  });

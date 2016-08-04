@@ -125,6 +125,18 @@ body {
     z-index: 99;
 }
 
+#message {
+    width: 100px;
+    height: 50px;
+    color: #000;
+/*    background-color: #333;*/
+    z-index: 1000;
+    margin-left: 40px;
+    margin-top: 30px;
+    vertical-align: center;
+}
+
+
 
 #score {
     font-size: 22px;
@@ -133,7 +145,7 @@ body {
     height: 35px;
     border: solid 2px #333;
     border-radius: 5px;
-    margin-left: 15px;
+    margin-left: 31px;
     margin-top: 15px;
     background-color: #32050C;
 }
@@ -144,21 +156,15 @@ body {
     height: 30px;
     border-radius: 100%;
     background-color: green;
-    margin-left: 85px;
+    margin-left: 112px;
     margin-top: -65px;
     cursor: pointer;
 }
 
-/*#strict {
-    border: 2px solid #333;
-    width: 30px;
-    height: 30px;
-    border-radius: 100%;
-    background-color: #D69B0B;
-    margin-left: 135px;
-    margin-top: -65px;
-    cursor: pointer;
-}*/
+#count {
+    margin-left: 46px;
+}
+
 
 h1, h2{
   color: #fff;
@@ -173,6 +179,7 @@ h3 {
 h4 {
     font-size: 15px;
     margin-top: 9px;
+    margin-left: 73px;
 }
 
 h5 {
@@ -180,4 +187,5 @@ h5 {
     margin-top: 9px;
     margin-left: 100px;
 }
+
 
