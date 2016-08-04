@@ -3,6 +3,7 @@
      var turn = 0;
      var simonPattern = [];
      var userPattern = [];
+     var message = document.getElementById("message");
      // var gameStatus = {}; use for messages
 
      //use .getElementById because it returns just the tag, instead of $ because it returns an array of objects.. not what we want
@@ -25,7 +26,7 @@
      });
      // end start button function
 
-
+     // start simonaudio function
      function simonAudio() {
          if (choice == red) {
              redAudio.play();
@@ -37,7 +38,7 @@
              yellowAudio.play();
          }
      };
-
+     // end simonaudio function
      // random color generator
      function compColor() {
          colors = [red, green, blue, yellow];
@@ -49,6 +50,7 @@
 
      // start gameStart function 
      function gameStart() {
+         $("#message").empty()
          document.getElementById("score").innerHTML = turn;
          compColor();
          simonPattern.push(choice);
@@ -57,7 +59,6 @@
          setTimeout(function() {
              $(choice).removeClass("lit");
          }, 800);
-         // console.log(simonPattern);
          return;
      };
      // end gameStart function
@@ -85,7 +86,6 @@
 
      };
 
-
      // start checkPattern
      function checkPattern() {
          if (userPattern.length !== simonPattern.length)
@@ -98,26 +98,36 @@
      };
      // end of checkPattern
 
+
      // start of nextTurn function
      function nextTurn() {
-         setTimeout(function() {
+         // setTimeout(function() {
 
-             if (checkPattern()) {
+         if (checkPattern()) {
+             message.innerHTML = "Good job, keep going!";
+             userPattern = []; //need to empty array everytime
+             turn++;
+             $("#score").html(turn);
+             compColor();
+             simonPattern.push(choice);
+             checkTurn();
+             gameRun();
 
-                 userPattern = []; //need to empty array everytime
-                 turn++;
-                 $("#score").html(turn);
-                 compColor();
-                 simonPattern.push(choice);
-                 gameRun();
+         } else {
+             message.innerHTML = "GAME OVER. Press START to play again."
 
-             } else {
-                 // youLose
-             };
-             return;
-         }, 1000);
+         };
+         return;
+         // gameStart();
+         // }, 1000);
 
      };
+
+     function reset() {
+         simonPattern = [];
+         userPattern = [];
+     }
+
      // end of nextTurn function
 
      // start of lengthCheck function
@@ -130,16 +140,17 @@
      // end of lengthCheck function
 
      function checkTurn() {
-         if (turn >= 3) {
+         if (turn >= 21) {
+             message.innerHTML = "Congrats! You won!";
              simonPattern = [];
-             alert('You win');
+             userPattern = [];
          }
+         return;
      };
 
      //listen for user clicks-- updated. 
      $(".btn").mousedown(function() {
          $(this).addClass("lit");
-         userAudio();
          userPattern.push(this);
      });
      $(".btn").mouseup(function() {
