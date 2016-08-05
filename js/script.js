@@ -80,11 +80,19 @@
                  $(simonPattern[counter]).removeClass("lit");
                  counter++;
                  console.log('timeout');
-             }, 500);
+             }, 700);
 
          }, 1000);
 
      };
+
+          function checkSpeed () {
+        if (turn > 5) {
+            setTimeout(nextTurn, 100 );
+        } else if (turn > 10) {
+            setTimeout(nextTurn, 350 );
+        }
+     }
 
      // start checkPattern
      function checkPattern() {
@@ -101,7 +109,7 @@
 
      // start of nextTurn function
      function nextTurn() {
-         // setTimeout(function() {
+         setTimeout(function() {
 
          if (checkPattern()) {
              message.innerHTML = "Good job, keep going!";
@@ -119,7 +127,7 @@
          };
          return;
          // gameStart();
-         // }, 1000);
+         }, 1000);
 
      };
 
@@ -147,6 +155,7 @@
          }
          return;
      };
+
 
      //listen for user clicks-- updated. 
      $(".btn").mousedown(function() {

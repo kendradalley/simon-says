@@ -1,4 +1,5 @@
 #Simon Says
+## By Kendra Dalley
 
 ## About
 
@@ -14,6 +15,21 @@ The program has four colored buttons, each producing a particular tone when it i
     * JavaScript
     * jQuery
 
+## Demo
+[Simon Says](https://kendradalley.github.io/simon-says/))
+
+## Best Experience
+Getting the lights & sounds to sync up with the Simon sequence
+
+## Worst Experience
+Getting the intervals right
+
 ## Unsolved Problems
 
-User is able to interact with board while cpu is in the process of executing the sequence.
+* User is able to interact with board while cpu is in the process of executing the sequence
+* Comparison of sequence continues until the count is met. Would like to have it stopped if the first selection does not match the sequence
+
+## Additional Updates
+* Increase speed between intervals
+* Create a pop-up modal for the message panel instead of within the game portion for better usability
+* Animation for better engagement through the game process
