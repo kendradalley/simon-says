@@ -28,7 +28,8 @@
 
      // start simonaudio function
      function simonAudio() {
-         if (choice == red) {
+        for(i=0; i < simonPattern.length; i++){
+         if (choice == red || simonPattern[i] == red) {
              redAudio.play();
          } else if (choice == blue) {
              blueAudio.play();
@@ -37,13 +38,14 @@
          } else if (choice == yellow) {
              yellowAudio.play();
          }
+         }
      };
      // end simonaudio function
      // random color generator
      function compColor() {
          colors = [red, green, blue, yellow];
          choice = colors[Math.floor(Math.random() * colors.length)];
-         return colors;
+         return choice;
 
      };
      // end random color generator
@@ -54,6 +56,7 @@
          document.getElementById("score").innerHTML = turn;
          compColor();
          simonPattern.push(choice);
+         console.log(simonPattern);
          simonAudio();
          $(choice).addClass("lit");
          setTimeout(function() {
@@ -69,7 +72,7 @@
          var counter = 0;
 
          var myInterval = setInterval(function() {
-             // console.log('In interval:', counter);
+             console.log('In interval:', counter);
              if (counter === simonPattern.length - 1) {
                  clearInterval(myInterval);
              };
@@ -88,89 +91,83 @@
 
      // start checkPattern
      function checkPattern() {
-         if (userPattern.length !== simonPattern.length)
-             return false;
+         // if (userPattern.length !== simonPattern.length)
+         //     return false;
          for (var i = userPattern.length; i--;) {
              if (userPattern[i] !== simonPattern[i])
                  return false;
+             // else if (userPattern.length !== simonPattern.length)
+             //     return false;
          }
-         return true;
-     };
-     // end of checkPattern
+     return true;
+ };
+ // end of checkPattern
 
 
-     // start of nextTurn function
-     function nextTurn() {
-         // setTimeout(function() {
+ // start of nextTurn function
+ function nextTurn() {
+     // setTimeout(function() {
 
-         if (checkPattern()) {
-             message.innerHTML = "Good job, keep going!";
-             userPattern = []; //need to empty array everytime
-             turn++;
-             $("#score").html(turn);
-             compColor();
-             simonPattern.push(choice);
-             checkTurn();
-             gameRun();
+     if (checkPattern()) {
+         message.innerHTML = "Good job, keep going!";
+         userPattern = []; //need to empty array everytime
+         turn++;
+         $("#score").html(turn);
+         compColor();
+         simonPattern.push(choice);
+         checkTurn();
+         gameRun();
 
-         } else {
-             message.innerHTML = "GAME OVER. Press START to play again."
-
-         };
-         return;
-         // gameStart();
-         // }, 1000);
+     } else {
+         message.innerHTML = "GAME OVER. Press START to play again."
 
      };
+     return;
+     // gameStart();
+     // }, 1000);
+         console.log(simonPattern);
+ };
 
-     function reset() {
+
+ // end of nextTurn function
+
+ // start of lengthCheck function
+ function lengthCheck() {
+     if (userPattern.length == simonPattern.length) {
+         nextTurn();
+     };
+     return;
+ };
+ // end of lengthCheck function
+
+ function checkTurn() {
+     if (turn >= 21) {
+         message.innerHTML = "Congrats! You won!";
          simonPattern = [];
          userPattern = [];
      }
+     return;
+ };
 
-     // end of nextTurn function
+ //listen for user clicks-- updated. 
+ $(".btn").mousedown(function() {
+     $(this).addClass("lit");
+     userPattern.push(this);
+ }); $(".btn").mouseup(function() {
+     $(this).removeClass("lit");
+     lengthCheck();
+ });
+ // end of click listeners
 
-     // start of lengthCheck function
-     function lengthCheck() {
-         if (userPattern.length == simonPattern.length) {
-             nextTurn();
-         };
-         return;
-     };
-     // end of lengthCheck function
-
-     function checkTurn() {
-         if (turn >= 21) {
-             message.innerHTML = "Congrats! You won!";
-             simonPattern = [];
-             userPattern = [];
-         }
-         return;
-     };
-
-     //listen for user clicks-- updated. 
-     $(".btn").mousedown(function() {
-         $(this).addClass("lit");
-         userPattern.push(this);
-     });
-     $(".btn").mouseup(function() {
-         $(this).removeClass("lit");
-         lengthCheck();
-     });
-     // end of click listeners
-
-     //start userAudio clicks
-     $("#red").mousedown(function() {
-         redAudio.play();
-     });
-     $("#green").mousedown(function() {
-         greenAudio.play();
-     });
-     $("#blue").mousedown(function() {
-         blueAudio.play();
-     });
-     $("#yellow").mousedown(function() {
-         yellowAudio.play();
-     });
-     // end userAudio clicks
+ //start userAudio clicks
+ $("#red").mousedown(function() {
+     redAudio.play();
+ }); $("#green").mousedown(function() {
+     greenAudio.play();
+ }); $("#blue").mousedown(function() {
+     blueAudio.play();
+ }); $("#yellow").mousedown(function() {
+     yellowAudio.play();
+ });
+ // end userAudio clicks
  });
