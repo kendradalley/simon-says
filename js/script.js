@@ -41,6 +41,7 @@
          }
      };
      // end simonaudio function
+
      // random color generator
      function compColor() {
          colors = [red, green, blue, yellow];
@@ -83,7 +84,7 @@
                  $(simonPattern[counter]).removeClass("lit");
                  counter++;
                  console.log('timeout');
-             }, 500);
+             }, 700);
 
          }, 1000);
 
@@ -140,6 +141,7 @@
  };
  // end of lengthCheck function
 
+<<<<<<< HEAD
  function checkTurn() {
      if (turn >= 21) {
          message.innerHTML = "Congrats! You won!";
@@ -170,4 +172,32 @@
      yellowAudio.play();
  });
  // end userAudio clicks
+=======
+
+     //listen for user clicks-- updated. 
+     $(".btn").mousedown(function() {
+         $(this).addClass("lit");
+         userPattern.push(this);
+     });
+     $(".btn").mouseup(function() {
+         $(this).removeClass("lit");
+         lengthCheck();
+     });
+     // end of click listeners
+
+     //start userAudio clicks
+     $("#red").mousedown(function() {
+         redAudio.play();
+     });
+     $("#green").mousedown(function() {
+         greenAudio.play();
+     });
+     $("#blue").mousedown(function() {
+         blueAudio.play();
+     });
+     $("#yellow").mousedown(function() {
+         yellowAudio.play();
+     });
+     // end userAudio clicks
+>>>>>>> 2f55d40784e0ac85b4f726372f9f6505fa4af890
  });
