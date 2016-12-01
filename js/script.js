@@ -27,18 +27,18 @@
      // end start button function
 
      // start simonaudio function
-     function simonAudio() {
-        i = simonPattern
-        for(i=0; i < simonPattern.length; i++){
-         if (choice == red || simonPattern[i] == red) {
+     function simonAudio(color) {
+        // i = simonPattern
+        // for(var i=0; i < simonPattern.length; i++){
+         if (color == red) {
              redAudio.play();
-         } else if (choice == blue) {
+         } else if (color == blue) {
              blueAudio.play();
-         } else if (choice == green) {
+         } else if (color == green) {
              greenAudio.play();
-         } else if (choice == yellow) {
+         } else if (color == yellow) {
              yellowAudio.play();
-         }
+         // }
          }
      };
      // end simonaudio function
@@ -60,7 +60,7 @@
          compColor();
          simonPattern.push(choice);
          console.log(simonPattern);
-         simonAudio();
+         simonAudio(choice);
          $(choice).addClass("lit");
          setTimeout(function() {
              $(choice).removeClass("lit");
@@ -79,7 +79,7 @@
              if (counter === simonPattern.length - 1) {
                  clearInterval(myInterval);
              };
-             simonAudio();
+             simonAudio(simonPattern[counter]);
              $(simonPattern[counter]).addClass("lit");
 
              setTimeout(function() {
@@ -159,6 +159,7 @@ function reset() {
  //listen for user clicks-- updated. 
  $(".btn").mousedown(function() {
      $(this).addClass("lit");
+     simonAudio(this);
      userPattern.push(this);
      console.log(userPattern);
  }); $(".btn").mouseup(function() {
@@ -169,15 +170,15 @@ function reset() {
  // end of click listeners
 
  //start userAudio clicks
- $("#red").mousedown(function() {
-     redAudio.play();
- }); $("#green").mousedown(function() {
-     greenAudio.play();
- }); $("#blue").mousedown(function() {
-     blueAudio.play();
- }); $("#yellow").mousedown(function() {
-     yellowAudio.play();
- });
+ // $("#red").mousedown(function() {
+ //     redAudio.play();
+ // }); $("#green").mousedown(function() {
+ //     greenAudio.play();
+ // }); $("#blue").mousedown(function() {
+ //     blueAudio.play();
+ // }); $("#yellow").mousedown(function() {
+ //     yellowAudio.play();
+ // });
  // end userAudio clicks
 
  });
