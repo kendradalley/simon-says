@@ -28,6 +28,7 @@
 
      // start simonaudio function
      function simonAudio() {
+        i = simonPattern
         for(i=0; i < simonPattern.length; i++){
          if (choice == red || simonPattern[i] == red) {
              redAudio.play();
@@ -46,6 +47,7 @@
      function compColor() {
          colors = [red, green, blue, yellow];
          choice = colors[Math.floor(Math.random() * colors.length)];
+         console.log(choice);
          return choice;
 
      };
@@ -92,18 +94,21 @@
 
      // start checkPattern
      function checkPattern() {
-         // if (userPattern.length !== simonPattern.length)
-         //     return false;
-         for (var i = userPattern.length; i--;) {
-             if (userPattern[i] !== simonPattern[i])
+
+         for (var i = 0; i < userPattern.length; i++) {
+             if (userPattern[i] !== simonPattern[i]){
+                 message.innerHTML = "GAME OVER. Press START to play again."
                  return false;
-             // else if (userPattern.length !== simonPattern.length)
-             //     return false;
+             }
+
          }
      return true;
  };
  // end of checkPattern
+function reset() {
+    simonPattern = [];
 
+}
 
  // start of nextTurn function
  function nextTurn() {
@@ -116,6 +121,7 @@
          $("#score").html(turn);
          compColor();
          simonPattern.push(choice);
+        console.log(simonPattern);
          checkTurn();
          gameRun();
 
@@ -141,7 +147,6 @@
  };
  // end of lengthCheck function
 
-<<<<<<< HEAD
  function checkTurn() {
      if (turn >= 21) {
          message.innerHTML = "Congrats! You won!";
@@ -155,8 +160,10 @@
  $(".btn").mousedown(function() {
      $(this).addClass("lit");
      userPattern.push(this);
+     console.log(userPattern);
  }); $(".btn").mouseup(function() {
      $(this).removeClass("lit");
+     checkPattern();
      lengthCheck();
  });
  // end of click listeners
@@ -172,32 +179,5 @@
      yellowAudio.play();
  });
  // end userAudio clicks
-=======
 
-     //listen for user clicks-- updated. 
-     $(".btn").mousedown(function() {
-         $(this).addClass("lit");
-         userPattern.push(this);
-     });
-     $(".btn").mouseup(function() {
-         $(this).removeClass("lit");
-         lengthCheck();
-     });
-     // end of click listeners
-
-     //start userAudio clicks
-     $("#red").mousedown(function() {
-         redAudio.play();
-     });
-     $("#green").mousedown(function() {
-         greenAudio.play();
-     });
-     $("#blue").mousedown(function() {
-         blueAudio.play();
-     });
-     $("#yellow").mousedown(function() {
-         yellowAudio.play();
-     });
-     // end userAudio clicks
->>>>>>> 2f55d40784e0ac85b4f726372f9f6505fa4af890
  });
