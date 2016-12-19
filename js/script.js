@@ -4,9 +4,7 @@
      var simonPattern = [];
      var userPattern = [];
      var message = document.getElementById("message");
-     // var gameStatus = {}; use for messages
 
-     //use .getElementById because it returns just the tag, instead of $ because it returns an array of objects.. not what we want
      var red = document.getElementById("red");
      var green = document.getElementById("green");
      var blue = document.getElementById("blue");
@@ -17,7 +15,7 @@
      var blueAudio = new Audio('simonSound-blue.mp3');
      var yellowAudio = new Audio('simonSound-yellow.mp3');
 
-     // start .start button function
+     // start
      $("#start").on("click", function() {
          turn = 1;
          simonPattern = [];
@@ -94,6 +92,7 @@
          }, 1000);
 
      };
+  // end gameRun function
 
      // start checkPattern
      function checkPattern() {
@@ -115,7 +114,6 @@
 
      // start of nextTurn function
      function nextTurn() {
-         // setTimeout(function() {
 
          if (checkPattern()) {
              message.innerHTML = "Good job, keep going!";
@@ -133,9 +131,11 @@
 
          };
          return;
+
          // gameStart();
          // }, 1000);
          console.log(simonPattern);
+
      };
 
 
@@ -150,6 +150,7 @@
      };
      // end of lengthCheck function
 
+  // start checkTurn function
      function checkTurn() {
          if (turn >= 21) {
              message.innerHTML = "Congrats! You won!";
@@ -158,6 +159,7 @@
          }
          return;
      };
+  // end checkTurn function
 
      var compGameRun = false;
      //listen for user clicks-- updated. 
