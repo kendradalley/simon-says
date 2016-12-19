@@ -25,24 +25,28 @@
      // end start button function
 
      // start simonaudio function
-     function simonAudio() {
-         if (choice == red) {
+     function simonAudio(color) {
+         // i = simonPattern
+         // for(var i=0; i < simonPattern.length; i++){
+         if (color == red) {
              redAudio.play();
-         } else if (choice == blue) {
+         } else if (color == blue) {
              blueAudio.play();
-         } else if (choice == green) {
+         } else if (color == green) {
              greenAudio.play();
-         } else if (choice == yellow) {
+         } else if (color == yellow) {
              yellowAudio.play();
+             // }
          }
      };
      // end simonaudio function
-  
+
      // random color generator
      function compColor() {
          colors = [red, green, blue, yellow];
          choice = colors[Math.floor(Math.random() * colors.length)];
-         return colors;
+         console.log(choice);
+         return choice;
 
      };
      // end random color generator
@@ -53,7 +57,8 @@
          document.getElementById("score").innerHTML = turn;
          compColor();
          simonPattern.push(choice);
-         simonAudio();
+         console.log(simonPattern);
+         simonAudio(choice);
          $(choice).addClass("lit");
          setTimeout(function() {
              $(choice).removeClass("lit");
@@ -64,22 +69,25 @@
 
      // start gameRun function
      function gameRun() {
-
+         compGameRun = true;
          var counter = 0;
 
          var myInterval = setInterval(function() {
-             // console.log('In interval:', counter);
+             console.log('In interval:', counter);
              if (counter === simonPattern.length - 1) {
                  clearInterval(myInterval);
+
              };
-             simonAudio();
+             simonAudio(simonPattern[counter]);
              $(simonPattern[counter]).addClass("lit");
 
              setTimeout(function() {
+                 if (counter === simonPattern.length - 1) {
+                     compGameRun = false;
+                 }
                  $(simonPattern[counter]).removeClass("lit");
                  counter++;
-                 console.log('timeout');
-             }, 500);
+             }, 700);
 
          }, 1000);
 
@@ -88,16 +96,21 @@
 
      // start checkPattern
      function checkPattern() {
-         if (userPattern.length !== simonPattern.length)
-             return false;
-         for (var i = userPattern.length; i--;) {
-             if (userPattern[i] !== simonPattern[i])
+
+         for (var i = 0; i < userPattern.length; i++) {
+             if (userPattern[i] !== simonPattern[i]) {
+                 message.innerHTML = "GAME OVER. Press START to play again."
                  return false;
+             }
+
          }
          return true;
      };
      // end of checkPattern
+     function reset() {
+         simonPattern = [];
 
+     }
 
      // start of nextTurn function
      function nextTurn() {
@@ -109,6 +122,7 @@
              $("#score").html(turn);
              compColor();
              simonPattern.push(choice);
+             console.log(simonPattern);
              checkTurn();
              gameRun();
 
@@ -117,6 +131,10 @@
 
          };
          return;
+
+         // gameStart();
+         // }, 1000);
+         console.log(simonPattern);
 
      };
 
@@ -143,29 +161,39 @@
      };
   // end checkTurn function
 
+     var compGameRun = false;
+     //listen for user clicks-- updated. 
+     //
 
      $(".btn").mousedown(function() {
-         $(this).addClass("lit");
-         userPattern.push(this);
+         if (!compGameRun) {
+
+             $(this).addClass("lit");
+             simonAudio(this);
+             userPattern.push(this);
+             console.log(userPattern);
+         }
      });
+
      $(".btn").mouseup(function() {
-         $(this).removeClass("lit");
-         lengthCheck();
+         if (!compGameRun) {
+             $(this).removeClass("lit");
+             checkPattern();
+             lengthCheck();
+         }
      });
      // end of click listeners
 
      //start userAudio clicks
-     $("#red").mousedown(function() {
-         redAudio.play();
-     });
-     $("#green").mousedown(function() {
-         greenAudio.play();
-     });
-     $("#blue").mousedown(function() {
-         blueAudio.play();
-     });
-     $("#yellow").mousedown(function() {
-         yellowAudio.play();
-     });
+     // $("#red").mousedown(function() {
+     //     redAudio.play();
+     // }); $("#green").mousedown(function() {
+     //     greenAudio.play();
+     // }); $("#blue").mousedown(function() {
+     //     blueAudio.play();
+     // }); $("#yellow").mousedown(function() {
+     //     yellowAudio.play();
+     // });
      // end userAudio clicks
+
  });

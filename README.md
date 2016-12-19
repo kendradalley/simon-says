@@ -1,4 +1,5 @@
 #Simon Says
+## By Kendra Dalley
 
 ## Demo ([Simon Says](https://kendradalley.github.io/simon-says/))
 
@@ -15,6 +16,7 @@ The program has four colored buttons, each producing a particular tone when it i
     * Bootstrap
     * JavaScript
     * jQuery
+
 
 ## Best Experience
 Getting the lights & sounds to sync up with the Simon sequence
